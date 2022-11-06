@@ -1,0 +1,81 @@
+.container{
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+.input_container {
+border: 1px solid black;
+border-radius: 10px;
+
+min-width: 500px;
+margin: 20px;
+padding: 10px;
+flex:1;
+height: 80vh;
+}
+
+.output_container {
+    border: 1px solid black;
+    border-radius: 10px;
+    min-height: 500px;
+    min-width: 500px;
+    margin: 20px;
+    height: 80vh;
+    overflow-y: scroll;
+    padding: 10px;
+    flex:1;
+}
+
+.submit_button {
+    height: 20px;
+    flex:1;
+}
+
+.loader {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: gray;
+    opacity: 0.8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    display: none;
+    flex:1;
+}
+
+.dots-1 {
+    width: 60px;
+    aspect-ratio: 4;
+    background: radial-gradient(circle closest-side,#000 90%,#0000) 0/calc(100%/3) 100% space;
+    clip-path: inset(0 100% 0 0);
+    animation: d1 1s steps(4) infinite;
+  }
+  @keyframes d1 {to{clip-path: inset(0 -34% 0 0)}}
+  
+  .dots-2 {
+    width: 60px;
+    aspect-ratio: 4;
+    background: radial-gradient(circle closest-side,#000 90%,#0000) 0/calc(100%/3) 100% no-repeat;
+    animation: d2 1s steps(3) infinite;
+  }
+  @keyframes d2 {to{background-position: 150%}}
+  
+  .dots-3 {
+    width: 60px;
+    aspect-ratio: 2;
+    --_g: no-repeat radial-gradient(circle closest-side,#000 90%,#0000);
+    background: 
+      var(--_g) 0%   50%,
+      var(--_g) 50%  50%,
+      var(--_g) 100% 50%;
+    background-size: calc(100%/3) 50%;
+    animation: d3 1s infinite linear;
+  }
+  @keyframes d3 {
+      20%{background-position:0%   0%, 50%  50%,100%  50%}
+      40%{background-position:0% 100%, 50%   0%,100%  50%}
+      60%{background-position:0%  50%, 50% 100%,100%   0%}
+      80%{background-position:0%  50%, 50%  50%,100% 100%}
+  }

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="index.css" />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.1.3/axios.min.js"
+      integrity="sha512-0qU9M9jfqPw6FKkPafM3gy2CBAvUWnYVOfNPDYKVuRTel1PrciTj+a9P3loJB+j0QmN2Y0JYQmkBBS8W+mbezg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="index.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="loader" id="loader">
+        <div class="dots-1"></div>
+        <!-- <div class="dots-2"></div>
+        <div class="dots-3"></div> -->
+      </div>
+      <textarea class="input_container" id="input_text"></textarea>
+      <input
+        type="button"
+        name="submit"
+        class="submit_button"
+        value="Submit"
+        onclick="submitFun()"
+      />
+      <div
+        class="output_container"
+        id="output_text"
+        contenteditable="true"
+      ></div>
+    </div>
+  </body>
+</html>
