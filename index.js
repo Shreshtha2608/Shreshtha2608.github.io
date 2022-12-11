@@ -20,6 +20,9 @@ submitFun = () => {
       steps: [
         {
           skill: "dialogue-segmentation",
+          params: {
+            amount: "more",
+          },
         },
       ],
     },
