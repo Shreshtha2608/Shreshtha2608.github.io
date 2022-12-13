@@ -89,6 +89,10 @@ height: 80vh;
     padding: 20px;
   }
 
-  body {
+  body,h3 {
     margin: 0
+  }
+
+  p{
+    margin-top: 0;
   }

@@ -119,7 +119,7 @@ assign_title = () => {
         const headingNode = document.createTextNode(output_data[0].value);
         headline.appendChild(headingNode);
 
-        const subHeading = document.createElement("h5");
+        const subHeading = document.createElement("h3");
         const subHeadingNode = document.createTextNode(
           titleCase(output_data[1].value)
         );
