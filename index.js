@@ -46,7 +46,6 @@ submitFun = () => {
       parent_element.innerText = "";
       let output_data = response.data.output[0].labels;
       output_data.forEach((element) => {
-        console.log("element ", element);
         const para = document.createElement("p");
         const node = document.createTextNode(element.span_text);
         para.appendChild(node);
@@ -69,8 +68,9 @@ onTitleAssignmentClick = async () => {
   window.location.href = "./title-assignment.html";
 };
 
-assign_title = () => {
+assign_title = async () => {
   let showLoading = true;
+  document.getElementById("output_text_with_heading").innerHTML = "";
   document.getElementById("loader").style.display = "flex";
   let input_text_segmented = document.getElementById(
     "input_text_segmented"
@@ -106,7 +106,7 @@ assign_title = () => {
       .then((response) => {
         showLoading = false;
         document.getElementById("loader").style.display = "none";
-        console.log(JSON.stringify(response));
+        //console.log(JSON.stringify(response));
         const parent_element = document.getElementById(
           "output_text_with_heading"
         );
@@ -116,7 +116,9 @@ assign_title = () => {
         para.appendChild(node);
 
         const headline = document.createElement("h3");
-        const headingNode = document.createTextNode(output_data[0].value);
+        const headingNode = document.createTextNode(
+          titleCase(output_data[0].value)
+        );
         headline.appendChild(headingNode);
 
         const subHeading = document.createElement("h3");
