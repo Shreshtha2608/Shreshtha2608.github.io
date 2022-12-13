@@ -2,7 +2,12 @@
 function titleCase(string) {
   var sentence = string.toLowerCase().split(" ");
   for (var i = 0; i < sentence.length; i++) {
-    sentence[i] = sentence[i][0].toUpperCase() + sentence[i].slice(1);
+    console.log(sentence[i].length, i, sentence[i]);
+    if (sentence[i].length < 4 && i !== 0) {
+      sentence[i] = sentence[i];
+    } else {
+      sentence[i] = sentence[i][0].toUpperCase() + sentence[i].slice(1);
+    }
   }
   //document.write(sentence.join(" "));
   let updatedString = sentence.join(" ");
