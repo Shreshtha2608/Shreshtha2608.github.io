@@ -19,17 +19,14 @@ submitFun = () => {
   let showLoading = true;
   document.getElementById("loader").style.display = "flex";
   let radioBtn = document.getElementsByName("amount");
-  console.log("radioBtn", radioBtn);
   let amount = "more";
   radioBtn.forEach((itm) => {
     if (itm.checked) {
-      console.log("itm", itm.value);
       amount = itm.value;
     }
   });
-  console.log(amount);
   let input_text = document.getElementById("input_text").value;
-  const apiKey = "13dad5b2-4ba6-4326-86ad-9d98cfa76468";
+  const apiKey = "ee8cfeca-49f1-4bcb-b061-1f69c9facd98";
   const config = {
     method: "POST",
     url: "https://api.oneai.com/api/v0/pipeline",
@@ -45,7 +42,7 @@ submitFun = () => {
         {
           skill: "dialogue-segmentation",
           params: {
-            amount: amount,
+            amount: "more",
           },
         },
       ],
@@ -81,7 +78,7 @@ onTitleAssignmentClick = async () => {
   window.location.href = "./title-assignment.html";
 };
 
-assign_title = async () => {
+assign_title = () => {
   let showLoading = true;
   document.getElementById("output_text_with_heading").innerHTML = "";
   document.getElementById("loader").style.display = "flex";
@@ -90,66 +87,63 @@ assign_title = async () => {
   ).value;
   let child_paras = input_text_segmented.split(/\r?\n|\r/);
   let removeEmptyEntery = child_paras.filter((itm) => itm.length > 0);
-  console.log("input_text_segmented", removeEmptyEntery);
 
-  removeEmptyEntery.forEach((itm) => {
-    const apiKey = "09f93eab-9846-4a0d-b866-5203d363d13d";
-    const config = {
-      method: "POST",
-      url: "https://api.oneai.com/api/v0/pipeline",
-      headers: {
-        "api-key": apiKey,
-        "Content-Type": "application/json",
-      },
-      data: {
-        input: itm,
-        input_type: "article",
-        output_type: "json",
-        steps: [
-          {
-            skill: "headline",
-          },
-          {
-            skill: "subheading",
-          },
-        ],
-      },
-    };
-    // let res = await axios(config)
-    //   .then((response) => {
-    //     showLoading = false;
-    //     console.log("response", response);
-    //     document.getElementById("loader").style.display = "none";
-    //     //console.log(JSON.stringify(response));
-    //     const parent_element = document.getElementById(
-    //       "output_text_with_heading"
-    //     );
-    //     let output_data = response.data.output[0].labels;
-    //     const para = document.createElement("p");
-    //     const node = document.createTextNode(itm);
-    //     para.appendChild(node);
+  const getPostsAsync = async () => {
+    //removeEmptyEntery.forEach(async (itm) => {
+    for (i = 0; i < removeEmptyEntery.length; i++) {
+      const apiKey = "ee8cfeca-49f1-4bcb-b061-1f69c9facd98";
+      const config = {
+        method: "POST",
+        url: "https://api.oneai.com/api/v0/pipeline",
+        headers: {
+          "api-key": apiKey,
+          "Content-Type": "application/json",
+        },
+        data: {
+          input: removeEmptyEntery[i],
+          input_type: "article",
+          output_type: "json",
+          steps: [
+            {
+              skill: "headline",
+            },
+            {
+              skill: "subheading",
+            },
+          ],
+        },
+      };
+      let response = await axios(config);
+      showLoading = false;
+      document.getElementById("loader").style.display = "none";
+      const parent_element = document.getElementById(
+        "output_text_with_heading"
+      );
+      let output_data = response.data.output[0].labels;
 
-    //     const headline = document.createElement("h3");
-    //     const headingNode = document.createTextNode(
-    //       titleCase(output_data[0].value)
-    //     );
-    //     headline.appendChild(headingNode);
+      let listSepArray = removeEmptyEntery[i].split(".");
+      listSepArray = listSepArray.filter((i) => i.length > 0);
 
-    //     const subHeading = document.createElement("h3");
-    //     const subHeadingNode = document.createTextNode(
-    //       titleCase(output_data[1].value)
-    //     );
-    //     subHeading.appendChild(subHeadingNode);
+      const list = document.createElement("ul");
+      listSepArray.forEach((text) => {
+        const listItem = document.createElement("li");
+        const node = document.createTextNode(text);
+        listItem.appendChild(node);
+        list.appendChild(listItem);
+      });
 
-    //     parent_element.appendChild(headline);
-    //     parent_element.appendChild(subHeading);
-    //     parent_element.appendChild(para);
-    //   })
+      const headline = document.createElement("h3");
+      const headingNode = document.createTextNode(
+        titleCase(output_data[0].value)
+      );
+      headline.appendChild(headingNode);
 
-    axios.catch((error) => {
-      console.log(error);
-    });
-  });
+      parent_element.appendChild(headline);
+      parent_element.appendChild(list);
+    }
+  };
+
+  getPostsAsync();
 };
 
 axioscall = async () => {
