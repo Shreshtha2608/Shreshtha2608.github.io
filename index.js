@@ -127,7 +127,7 @@ assign_title = () => {
       const list = document.createElement("ul");
       listSepArray.forEach((text) => {
         const listItem = document.createElement("li");
-        const node = document.createTextNode(text);
+        const node = document.createTextNode(text + ".");
         listItem.appendChild(node);
         list.appendChild(listItem);
       });
