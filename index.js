@@ -2,14 +2,12 @@
 function titleCase(string) {
   var sentence = string.toLowerCase().split(" ");
   for (var i = 0; i < sentence.length; i++) {
-    console.log(sentence[i].length, i, sentence[i]);
     if (sentence[i].length < 4 && i !== 0) {
       sentence[i] = sentence[i];
     } else {
       sentence[i] = sentence[i][0].toUpperCase() + sentence[i].slice(1);
     }
   }
-  //document.write(sentence.join(" "));
   let updatedString = sentence.join(" ");
   return updatedString;
 }
@@ -20,6 +18,16 @@ function titleCase(string) {
 submitFun = () => {
   let showLoading = true;
   document.getElementById("loader").style.display = "flex";
+  let radioBtn = document.getElementsByName("amount");
+  console.log("radioBtn", radioBtn);
+  let amount = "more";
+  radioBtn.forEach((itm) => {
+    if (itm.checked) {
+      console.log("itm", itm.value);
+      amount = itm.value;
+    }
+  });
+  console.log(amount);
   let input_text = document.getElementById("input_text").value;
   const apiKey = "13dad5b2-4ba6-4326-86ad-9d98cfa76468";
   const config = {
@@ -37,7 +45,7 @@ submitFun = () => {
         {
           skill: "dialogue-segmentation",
           params: {
-            amount: "more",
+            amount: amount,
           },
         },
       ],
@@ -107,37 +115,44 @@ assign_title = async () => {
         ],
       },
     };
-    axios(config)
-      .then((response) => {
-        showLoading = false;
-        document.getElementById("loader").style.display = "none";
-        //console.log(JSON.stringify(response));
-        const parent_element = document.getElementById(
-          "output_text_with_heading"
-        );
-        let output_data = response.data.output[0].labels;
-        const para = document.createElement("p");
-        const node = document.createTextNode(itm);
-        para.appendChild(node);
+    // let res = await axios(config)
+    //   .then((response) => {
+    //     showLoading = false;
+    //     console.log("response", response);
+    //     document.getElementById("loader").style.display = "none";
+    //     //console.log(JSON.stringify(response));
+    //     const parent_element = document.getElementById(
+    //       "output_text_with_heading"
+    //     );
+    //     let output_data = response.data.output[0].labels;
+    //     const para = document.createElement("p");
+    //     const node = document.createTextNode(itm);
+    //     para.appendChild(node);
 
-        const headline = document.createElement("h3");
-        const headingNode = document.createTextNode(
-          titleCase(output_data[0].value)
-        );
-        headline.appendChild(headingNode);
+    //     const headline = document.createElement("h3");
+    //     const headingNode = document.createTextNode(
+    //       titleCase(output_data[0].value)
+    //     );
+    //     headline.appendChild(headingNode);
 
-        const subHeading = document.createElement("h3");
-        const subHeadingNode = document.createTextNode(
-          titleCase(output_data[1].value)
-        );
-        subHeading.appendChild(subHeadingNode);
+    //     const subHeading = document.createElement("h3");
+    //     const subHeadingNode = document.createTextNode(
+    //       titleCase(output_data[1].value)
+    //     );
+    //     subHeading.appendChild(subHeadingNode);
 
-        parent_element.appendChild(headline);
-        parent_element.appendChild(subHeading);
-        parent_element.appendChild(para);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    //     parent_element.appendChild(headline);
+    //     parent_element.appendChild(subHeading);
+    //     parent_element.appendChild(para);
+    //   })
+
+    axios.catch((error) => {
+      console.log(error);
+    });
   });
+};
+
+axioscall = async () => {
+  let res = await axios(config);
+  return res;
 };

@@ -28,7 +28,7 @@ height: 80vh;
 }
 
 .submit_button {
-    height: 20px;
+    height: auto;
     flex:1;
 }
 
@@ -95,4 +95,16 @@ height: 80vh;
 
   p{
     margin-top: 0;
+  }
+
+  .amount-selection{
+    margin: 10px 0;
+  }
+
+  input[type=button] {
+    
+    border-radius: 20px;
+    padding: 8px;
+    cursor: pointer;
+    border: 1px solid gray;
   }
